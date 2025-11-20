@@ -1,6 +1,6 @@
 install:
 	pip install --upgrade pip &&\
-	pip install -r requirements.txt
+		pip install -r requirements.txt
 
 format:
 	black *.py
@@ -22,8 +22,8 @@ hf-login:
 	huggingface-cli login --token $(HF) --add-to-git-credential
 
 push-hub:
-	huggingface-cli upload Abderahman-el-hamidy/Weather-Prediction ./App --repo-type=space --commit-message="Sync App files"
-	huggingface-cli upload Abderahman-el-hamidy/Weather-Prediction ./Model /Model --repo-type=space --commit-message="Sync Model"
-	huggingface-cli upload Abderahman-el-hamidy/Weather-Prediction ./Results /Metrics --repo-type=space --commit-message="Sync Model"
+	@echo "Uploading to Hugging Face Space..."
+	huggingface-cli upload Abderahman-el-hamidy/Weather-Prediction ./App/weather_app.py weather_app.py --repo-type space --space-sdk streamlit
+	huggingface-cli upload Abderahman-el-hamidy/Weather-Prediction ./App/requirements.txt requirements.txt --repo-type space --space-sdk streamlit
 
 deploy: hf-login push-hub
