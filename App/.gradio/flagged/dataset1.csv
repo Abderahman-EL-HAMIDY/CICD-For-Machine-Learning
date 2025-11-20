@@ -1,0 +1,4 @@
+Temperature (°C),Humidity (%),Wind Speed (km/h),Cloud Cover (%),Pressure (hPa),output,timestamp
+25,50,10,50,1013,"{""label"": null, ""confidences"": null}",2025-11-20 22:52:06.171663
+25,50,10,50,1013,"{""label"": null, ""confidences"": null}",2025-11-20 22:52:15.646770
+25,50,10,50,1013,"{""label"": null, ""confidences"": null}",2025-11-20 22:52:19.062975
