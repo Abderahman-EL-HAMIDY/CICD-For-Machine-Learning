@@ -1,9 +1,13 @@
+---
 title: Weather Prediction
-emoji: 👀
-colorFrom: yellow
-colorTo: yellow
+emoji: 🌦️
+colorFrom: blue
+colorTo: green
 sdk: gradio
-sdk_version: 5.49.1
+sdk_version: "4.0.0"
 app_file: app.py
 pinned: false
-license: apache-2.0
+---
+
+# Weather Prediction - Rain Classifier
+Predicts rain based on weather conditions.
