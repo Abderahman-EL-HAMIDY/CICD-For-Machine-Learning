@@ -19,16 +19,12 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install Hugging Face Hub
-        run: |
-          pip install -U huggingface_hub
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
-
-      - name: Login and Deploy to Hugging Face
+      - name: Deploy to Hugging Face
         env:
           HF_TOKEN: ${{ secrets.HF }}
         run: |
-          huggingface-cli login --token $HF_TOKEN --add-to-git-credential
-          huggingface-cli upload Abderahman-el-hamidy/Weather-Prediction ./App --repo-type=space --commit-message="Sync App files"
-          huggingface-cli upload Abderahman-el-hamidy/Weather-Prediction ./Model /Model --repo-type=space --commit-message="Sync Model"
-          huggingface-cli upload Abderahman-el-hamidy/Weather-Prediction ./Results /Results --repo-type=space --commit-message="Sync Results"
+          pip install -U huggingface_hub
+          python -c "from huggingface_hub import login; login(token='$HF_TOKEN')"
+          python -c "from huggingface_hub import upload_folder; upload_folder(folder_path='./App', repo_id='Abderahman-el-hamidy/Weather-Prediction', repo_type='space', commit_message='Sync App files')"
+          python -c "from huggingface_hub import upload_folder; upload_folder(folder_path='./Model', repo_id='Abderahman-el-hamidy/Weather-Prediction', repo_type='space', path_in_repo='Model', commit_message='Sync Model')"
+          python -c "from huggingface_hub import upload_folder; upload_folder(folder_path='./Results', repo_id='Abderahman-el-hamidy/Weather-Prediction', repo_type='space', path_in_repo='Results', commit_message='Sync Results')"
