@@ -22,12 +22,12 @@ update-branch:
 	git push --force origin HEAD:update
 
 hf-login:
-	pip install -U "huggingface_hub[cli]"
-	huggingface-cli login --token $(HF) --add-to-git-credential
+	pip install -U huggingface_hub
+	python -m huggingface_hub.commands.huggingface_cli login --token $(HF) --add-to-git-credential
 
 push-hub:
-	huggingface-cli upload Abderahman-el-hamidy/Weather-Prediction ./App --repo-type=space --commit-message="Sync App files"
-	huggingface-cli upload Abderahman-el-hamidy/Weather-Prediction ./Model /Model --repo-type=space --commit-message="Sync Model"
-	huggingface-cli upload Abderahman-el-hamidy/Weather-Prediction ./Results /Results --repo-type=space --commit-message="Sync Results"
+	python -m huggingface_hub.commands.huggingface_cli upload Abderahman-el-hamidy/Weather-Prediction ./App --repo-type=space --commit-message="Sync App files"
+	python -m huggingface_hub.commands.huggingface_cli upload Abderahman-el-hamidy/Weather-Prediction ./Model /Model --repo-type=space --commit-message="Sync Model"
+	python -m huggingface_hub.commands.huggingface_cli upload Abderahman-el-hamidy/Weather-Prediction ./Results /Results --repo-type=space --commit-message="Sync Results"
 
 deploy: hf-login push-hub
