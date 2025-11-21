@@ -3,4 +3,3 @@ scikit-learn
 skops
 numpy
 pandas
-matplotlib

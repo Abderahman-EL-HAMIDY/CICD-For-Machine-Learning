@@ -1,8 +1,10 @@
 import gradio as gr
 import skops.io as sio
 import pandas as pd
+
 # Load the trained pipeline
-pipe = sio.load("../Model/weather_pipeline.skops", trusted=['numpy.dtype'])
+# Use ./Model/ for Hugging Face Spaces (all files are in root)
+pipe = sio.load("./Model/weather_pipeline.skops", trusted=['numpy.dtype'])
 
 
 def predict_rain(temperature, humidity, wind_speed, cloud_cover, pressure):
@@ -15,7 +17,6 @@ def predict_rain(temperature, humidity, wind_speed, cloud_cover, pressure):
     }])
     predicted_rain = pipe.predict(features)[0]
     return f"Prediction: {predicted_rain}"
-
 
 
 # Create input components
@@ -31,16 +32,15 @@ outputs = [gr.Label(num_top_classes=2)]
 
 # Example inputs for testing
 examples = [
-    [31.4, 74.3, 10.4, 68.3, 997.2],  # Example 1
-    [14.7, 83.3, 10.4, 13.9, 986.4],  # Example 2
-    [10.8, 64.8, 15.0, 18.0, 1013.4], # Example 3
+    [31.4, 74.3, 10.4, 68.3, 997.2],
+    [14.7, 83.3, 10.4, 13.9, 986.4],
+    [10.8, 64.8, 15.0, 18.0, 1013.4],
 ]
 
 title = "Weather Prediction - Rain Classifier"
 description = "Enter weather conditions to predict if it will rain or not."
 article = "This app is part of a CI/CD pipeline for Machine Learning. It demonstrates automated training, evaluation, and deployment using GitHub Actions."
 
-# Create and launch the interface
 gr.Interface(
     fn=predict_rain,
     inputs=inputs,
@@ -50,4 +50,4 @@ gr.Interface(
     description=description,
     article=article,
     theme=gr.themes.Soft(),
-).launch(share=True)
+).launch()
